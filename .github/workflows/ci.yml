@@ -15,15 +15,15 @@ jobs:
         # Primary target is 3.14; 3.12 is the supported floor, tested to prove the range.
         python-version: ["3.12", "3.14"]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: ${{ matrix.python-version }}
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86 # v5
 
       - name: Install dependencies (CPU torch)
         run: uv pip install --system -e ".[dev]"
@@ -50,7 +50,7 @@ jobs:
 
       - name: Upload benchmark JSON
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: benchmark-results
           path: benchmarks/results/*.json
@@ -63,7 +63,7 @@ jobs:
     name: CUDA kernel compiles + links (no GPU)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       # The CUDA toolkit and a CUDA torch wheel are several GB between them;
       # the stock runner image does not leave room without this.
@@ -73,7 +73,7 @@ jobs:
                       /usr/local/share/boost "$AGENT_TOOLSDIRECTORY"
           df -h /
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: "3.12"
 
@@ -81,7 +81,7 @@ jobs:
       # version the CPU jobs run — so this catches ATen/c10 API drift too, not
       # just the wiring.
       - name: Install CUDA toolkit (nvcc + cudart only)
-        uses: Jimver/cuda-toolkit@v0.2.36
+        uses: Jimver/cuda-toolkit@b8bf9c6c28f8a92fbb04dcfcaee872e60c57462d # v0.2.36
         id: cuda-toolkit
         with:
           cuda: "12.6.3"
