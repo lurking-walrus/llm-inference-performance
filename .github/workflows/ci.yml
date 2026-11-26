@@ -61,7 +61,8 @@ jobs:
   # compile and link, so this runs on an ordinary runner and closes that gap.
   cuda-kernel-build:
     name: CUDA kernel compiles + links (no GPU)
-    runs-on: ubuntu-latest
+    # CUDA 12.6 is not published for Ubuntu 26.04, which ubuntu-latest now is.
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
